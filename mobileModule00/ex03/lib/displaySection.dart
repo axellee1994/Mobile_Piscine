@@ -15,26 +15,35 @@ class DisplaySection extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.blueGrey[50],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            // Expression Field
-            TextField(
-              // Change this to use expression from state when implemented
-              controller: TextEditingController(text: expression),
-              textAlign: TextAlign.right,
-              style: const TextStyle(fontSize: 32, color: Colors.black54),
-              decoration: const InputDecoration(border: InputBorder.none),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  expression,
+                  style: const TextStyle(fontSize: 32, color: Colors.black54),
+                ),
+              ),
             ),
 
-            // Result TextField
-            TextField(
-              controller: TextEditingController(text: result),
-              textAlign: TextAlign.right,
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-              decoration: const InputDecoration(border: InputBorder.none),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  result,
+                  style: const TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

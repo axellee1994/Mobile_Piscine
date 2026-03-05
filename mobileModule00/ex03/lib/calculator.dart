@@ -15,25 +15,40 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String _result = '0';
 
   void _evaluateExpression() {
+    if (_expression == '0' || _expression == '-') return;
+
     try {
-      Parser p = Parser();
       String finalExpression = _expression
           .replaceAll('×', '*')
           .replaceAll('x', '*')
           .replaceAll('X', '*')
           .replaceAll('÷', '/');
+
+      RegExp expEnd = RegExp(r'[+\-*/xX÷×]$');
+      while (expEnd.hasMatch(finalExpression)) {
+        finalExpression = finalExpression.substring(
+          0,
+          finalExpression.length - 1,
+        );
+      }
+
+      Parser p = Parser();
       Expression exp = p.parse(finalExpression);
       ContextModel cm = ContextModel();
-
       double eval = exp.evaluate(EvaluationType.REAL, cm);
 
       setState(() {
         if (eval.isInfinite || eval.isNaN) {
           _result = "Error";
         } else {
-          _result = eval.toString();
-          if (_result.endsWith('.0')) {
-            _result = _result.substring(0, _result.length - 2);
+          if (eval == eval.toInt()) {
+            _result = eval.toInt().toString();
+          } else {
+            _result = eval.toStringAsFixed(8);
+            while (_result.contains('.') &&
+                (_result.endsWith('0') || _result.endsWith('.'))) {
+              _result = _result.substring(0, _result.length - 1);
+            }
           }
         }
       });
@@ -55,27 +70,37 @@ class _CalculatorPageState extends State<CalculatorPage> {
           } else {
             _expression = '0';
           }
-          debugPrint('Button pressed: Clear last entry');
           break;
         case "AC":
           _expression = '0';
           _result = '0';
-          debugPrint('Button pressed: Clear all entries');
           break;
         case "=":
           _evaluateExpression();
-          debugPrint('Button pressed: Calculate result');
           break;
         default:
-          if (_expression == '0' &&
-              text != '.' &&
-              text != '+' &&
-              text != '-' &&
-              text != '*' &&
-              text != '/') {
-            _expression = text;
+          if (_expression == '0') {
+            if (text == '-') {
+              _expression = '-';
+            } else if (text == '.') {
+              _expression = '0.';
+            } else if (text == '00') {
+              _expression = '0';
+            } else if (int.tryParse(text) != null) {
+              _expression = text;
+            }
           } else {
-            _expression += text;
+            String lastChar = _expression[_expression.length - 1];
+            List<String> operators = ['+', '-', 'x', 'X', '/', '×'];
+
+            if (text == '.' && lastChar == '.') return;
+
+            if (operators.contains(lastChar) && operators.contains(text)) {
+              _expression =
+                  _expression.substring(0, _expression.length - 1) + text;
+            } else {
+              _expression += text;
+            }
           }
           debugPrint('Button pressed: $text');
       }

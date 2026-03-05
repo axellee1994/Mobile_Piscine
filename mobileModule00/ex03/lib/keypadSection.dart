@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class KeypadSection extends StatelessWidget {
-  // Callback function for button presses - will be passed from parent widget
   final void Function(String) onButtonPressed;
 
   const KeypadSection({super.key, required this.onButtonPressed});
@@ -17,42 +16,53 @@ class KeypadSection extends StatelessWidget {
 
     return Expanded(
       flex: 2,
-      child: Container(
-        color: Colors.blueGrey[800],
-        padding: const EdgeInsets.all(4),
-        child: Column(
-          children: buttonRows.map((row) {
-            return Expanded(
-              child: Row(
-                // This forces button to stretch across and fill all the available space
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: row.map((text) {
-                  if (text.isEmpty) {
-                    return const Expanded(child: SizedBox.shrink());
-                  }
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isLandscape = constraints.maxHeight < 300;
+          double fontSize = isLandscape ? 18 : 28;
+          double paddingValue = isLandscape ? 2.0 : 4.0;
 
-                  // To make each button fills the horizontal space equally
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: TextButton(
-                        onPressed: () => onButtonPressed(text),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.blueGrey[700],
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+          return Container(
+            color: Colors.blueGrey[800],
+            padding: EdgeInsets.all(paddingValue),
+            child: Column(
+              children: buttonRows.map((row) {
+                return Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: row.map((text) {
+                      if (text.isEmpty) {
+                        return const Expanded(child: SizedBox.shrink());
+                      }
+
+                      return Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(paddingValue),
+                          child: TextButton(
+                            onPressed: () => onButtonPressed(text),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.blueGrey[700],
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              minimumSize: Size.zero,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: Text(
+                              text,
+                              style: TextStyle(fontSize: fontSize),
+                            ),
                           ),
                         ),
-                        child: Text(text, style: const TextStyle(fontSize: 28)),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
-          }).toList(),
-        ),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }).toList(),
+            ),
+          );
+        },
       ),
     );
   }
