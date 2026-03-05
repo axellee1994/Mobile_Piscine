@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DisplaySection extends StatelessWidget {
-  const DisplaySection({super.key});
+  final String expression;
+  final String result;
+
+  const DisplaySection({
+    super.key,
+    required this.expression,
+    required this.result,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +22,8 @@ class DisplaySection extends StatelessWidget {
           children: [
             // Expression Field
             TextField(
-              // According to subject PDF, display 0 for now
-              controller: TextEditingController(text: '0'),
-              readOnly: true,
+              // Change this to use expression from state when implemented
+              controller: TextEditingController(text: expression),
               textAlign: TextAlign.right,
               style: const TextStyle(fontSize: 32, color: Colors.black54),
               decoration: const InputDecoration(border: InputBorder.none),
@@ -25,8 +31,7 @@ class DisplaySection extends StatelessWidget {
 
             // Result TextField
             TextField(
-              controller: TextEditingController(text: '0'),
-              readOnly: true,
+              controller: TextEditingController(text: result),
               textAlign: TextAlign.right,
               style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               decoration: const InputDecoration(border: InputBorder.none),
