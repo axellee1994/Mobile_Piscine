@@ -6,7 +6,7 @@ void main() {
 }
 
 class Ex00App extends StatelessWidget {
-  // Need superkey to avoid error is null
+  // Need superkey to keep app state consistent when hot-reloading
   const Ex00App({super.key});
 
   @override

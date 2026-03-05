@@ -6,21 +6,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Make sure that it is centered both horizontal and vertical
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'A simple text',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+
+                // Olive Green color hex code
+                color: const Color(0xFF6B702B), 
+                borderRadius: BorderRadius.circular(15), 
+              ),
+              child: const Text(
+                'A    simple text',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            // Spacing between text and button
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 debugPrint('Button pressed');
               },
+              style: ElevatedButton.styleFrom(
+                elevation: 5,
+                shadowColor: Colors.transparent,
+                backgroundColor: Colors.grey[200],
+                foregroundColor: const Color(0xFF6B702B),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
               child: const Text('Click me'),
             ),
           ],
