@@ -1,6 +1,38 @@
 # ex03
 
-A new Flutter project.
+Continuing on from ex02
+
+## Setup
+
+To generate the `pubspec.yaml` file (if missing) and repair the project structure, run:
+
+```bash
+flutter create .
+```
+
+To add packages, use the following command:
+
+```bash
+flutter pub
+```
+
+To add thhe math_expressions package, use the following command:
+
+```bash
+flutter pub add math_expressions
+```
+
+To run the application, use the following command:
+
+```bash
+flutter run
+```
+
+To clean the application, use the following command:
+
+```bash
+flutter clean
+```
 
 ## Getting Started
 
