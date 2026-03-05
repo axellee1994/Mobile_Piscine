@@ -15,13 +15,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
       case "":
         break;
       case "C":
-        debugPrint('Clear last entry');
+        debugPrint('Button pressed: Clear last entry');
         break;
       case "AC":
-        debugPrint('Clear all entries');
+        debugPrint('Button pressed: Clear all entries');
         break;
       case "=":
-        debugPrint('Calculate result');
+        debugPrint('Button pressed: Calculate result');
         break;
       default:
         debugPrint('Button pressed: $text');
