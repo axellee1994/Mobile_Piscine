@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 
 void main() {
-  runApp(const Ex00App());
+  runApp(const Ex01App());
 }
 
-class Ex00App extends StatelessWidget {
+class Ex01App extends StatelessWidget {
   // Need superkey to keep app state consistent when hot-reloading
   const Ex01App({super.key});
 
