@@ -7,12 +7,12 @@ void main() {
 
 class Ex00App extends StatelessWidget {
   // Need superkey to keep app state consistent when hot-reloading
-  const Ex00App({super.key});
+  const Ex01App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Ex00",
+      title: "Ex01",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
         useMaterial3: true,
