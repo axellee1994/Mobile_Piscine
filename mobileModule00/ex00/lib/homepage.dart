@@ -13,10 +13,9 @@ class HomePage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
-
                 // Olive Green color hex code
-                color: const Color(0xFF6B702B), 
-                borderRadius: BorderRadius.circular(15), 
+                color: const Color(0xFF6B702B),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: const Text(
                 'A    simple text',
@@ -37,7 +36,10 @@ class HomePage extends StatelessWidget {
                 shadowColor: Colors.transparent,
                 backgroundColor: Colors.grey[200],
                 foregroundColor: const Color(0xFF6B702B),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
               child: const Text('Click me'),
             ),
