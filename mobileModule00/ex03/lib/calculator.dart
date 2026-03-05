@@ -14,13 +14,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String _expression = '0';
   String _result = '0';
 
-
-void _evaluateExpression() {
+  void _evaluateExpression() {
     try {
       Parser p = Parser();
-      Expression exp = p.parse(_expression);
+      String finalExpression = _expression
+          .replaceAll('×', '*')
+          .replaceAll('x', '*')
+          .replaceAll('X', '*')
+          .replaceAll('÷', '/');
+      Expression exp = p.parse(finalExpression);
       ContextModel cm = ContextModel();
-      
+
       double eval = exp.evaluate(EvaluationType.REAL, cm);
 
       setState(() {
@@ -35,22 +39,20 @@ void _evaluateExpression() {
       });
     } catch (e) {
       setState(() {
-        _result = "Error"; 
+        _result = "Error";
       });
     }
   }
 
-void _onButtonPressed(String text) {
-    if (text.isEmpty)
-      return;
+  void _onButtonPressed(String text) {
+    if (text.isEmpty) return;
 
     setState(() {
       switch (text) {
         case "C":
           if (_expression.length > 1) {
             _expression = _expression.substring(0, _expression.length - 1);
-          }
-          else {
+          } else {
             _expression = '0';
           }
           debugPrint('Button pressed: Clear last entry');
@@ -65,10 +67,14 @@ void _onButtonPressed(String text) {
           debugPrint('Button pressed: Calculate result');
           break;
         default:
-          if (_expression == '0' && text != '.' && text != '+' && text != '-' && text != '*' && text != '/') {
+          if (_expression == '0' &&
+              text != '.' &&
+              text != '+' &&
+              text != '-' &&
+              text != '*' &&
+              text != '/') {
             _expression = text;
-          }
-          else {
+          } else {
             _expression += text;
           }
           debugPrint('Button pressed: $text');
@@ -86,9 +92,7 @@ void _onButtonPressed(String text) {
       ),
       body: Column(
         children: [
-          DisplaySection(
-            expression: _expression,
-            result: _result),
+          DisplaySection(expression: _expression, result: _result),
           KeypadSection(onButtonPressed: _onButtonPressed),
         ],
       ),
