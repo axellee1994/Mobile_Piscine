@@ -39,7 +39,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
       setState(() {
         if (eval.isInfinite || eval.isNaN) {
-          _result = "Error";
+          _result = "Undefined";
         } else {
           if (eval == eval.toInt()) {
             _result = eval.toInt().toString();
